@@ -34,7 +34,10 @@ async function scheduling(executionStartDate, executionEndDate, maxExecutionTime
                 }
             }
 
+            const from = moment(currentDate).format('YYYY-MM-DD HH:mm');
             currentDate.add(job.estimatedTime, 'hours');
+            const until = moment(currentDate).format('YYYY-MM-DD HH:mm');
+            console.log(`Job: ${job.id} (${job.estimatedTime} hrs) | From: ${from} - Until: ${until}`)
         }
     });
 
