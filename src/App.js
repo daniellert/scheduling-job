@@ -7,7 +7,7 @@ import './App.scss';
 function App() {
   const [jobs, setJobs] = useState([]);
   const [form, setForm] = useState({
-    executationStartDate: '2019-10-11T09:00',
+    executationStartDate: '2019-11-10T09:00',
     executationEndDate: '2019-11-11T12:00',
     maxEstimatedTime: 8
   });
