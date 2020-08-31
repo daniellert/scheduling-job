@@ -15,11 +15,12 @@ async function scheduling(executionStartDate, executionEndDate, maxExecutionTime
         moment(job.maxExecutionDate).isSameOrBefore(moment(executionEndDate)));
     const filterJobsWithinEstimatedTime = jobsWithinExecutionWindow.filter((job) => job.estimatedTime <= maxExecutionTime);
     const orderJobsByMaxExecutionDate = orderBy(filterJobsWithinEstimatedTime, (job) => job.maxExecutionDate);
+    
     const jobsExecutionList = [];
-    const currentDate = moment(executionStartDate);
+    const currentDateTime = moment(executionStartDate);
 
     orderJobsByMaxExecutionDate.forEach(job => {
-        const estimatedEndTime = moment(currentDate).add(job.estimatedTime, 'hours');
+        const estimatedEndTime = moment(currentDateTime).add(job.estimatedTime, 'hours');
         if (estimatedEndTime.isSameOrBefore(job.maxExecutionDate)) {
             if (jobsExecutionList.length === 0) {
                 jobsExecutionList.push([job]);
@@ -34,9 +35,9 @@ async function scheduling(executionStartDate, executionEndDate, maxExecutionTime
                 }
             }
 
-            const from = moment(currentDate).format('YYYY-MM-DD HH:mm');
-            currentDate.add(job.estimatedTime, 'hours');
-            const until = moment(currentDate).format('YYYY-MM-DD HH:mm');
+            const from = moment(currentDateTime).format('YYYY-MM-DD HH:mm');
+            currentDateTime.add(job.estimatedTime, 'hours');
+            const until = moment(currentDateTime).format('YYYY-MM-DD HH:mm');
             console.log(`Job: ${job.id} (${job.estimatedTime} hrs) | From: ${from} - Until: ${until}`)
         }
     });
